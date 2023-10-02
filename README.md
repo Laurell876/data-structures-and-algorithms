@@ -1,1 +1,1 @@
-## course link: https://www.udemy.com/course/js-algorithms-and-data-structures-masterclass/learn/lecture/11070006#content 
+## course link: https://www.udemy.com/course/js-algorithms-and-data-structures-masterclass
