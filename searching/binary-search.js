@@ -11,15 +11,10 @@ function binarySearch(arr, value) {
   let start = 0;
   let end = arr.length - 1;
 
-  console.log("start: " + start);
-  console.log("end: " + end);
-
   while (start < end) {
     let mid = Math.ceil((start + end) / 2);
 
     let midVal = arr[mid];
-
-    console.log("midVal: " + midVal);
 
     if (midVal === value) {
       return mid;
