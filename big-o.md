@@ -6,6 +6,7 @@
 3. O(n)
 4. O(n log n)
 5. O(n^2)
+6. O(n!)
 
 **Log n Exlained**
 
