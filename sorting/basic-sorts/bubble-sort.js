@@ -11,7 +11,7 @@ const bubbleSort = (array) => {
     for (let i = 0; i < array.length; i++) {
         noSwaps = true
         for (let j = 0; j < array.length - i; j++) { // (-i) is added since the values at the end of the arra are already sorted in place
-            console.log(array[j],array[j+1])
+           // console.log(array[j],array[j+1])
 
             if (array[j] > array[j+1]) {
                 let temp = array[j]
