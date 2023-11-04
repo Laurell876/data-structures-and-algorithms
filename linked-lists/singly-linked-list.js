@@ -15,7 +15,7 @@ class SinglyLinkedList {
     traverse() {
         let current = this.head
         for (let i = 0; i < this.length; i++) {
-            console.log(current.val)
+            console.log("value: " + current.val)
             current = current.next
         }
     }
@@ -36,29 +36,53 @@ class SinglyLinkedList {
     pop() {
         // remove the final value from the end of the list
         if (this.length === 0) return undefined;
-
         
+        let current = this.head
+        let finalValue;
+        let previous;
+        for (let i = 0; i < this.length; i++) {
+            if (current.next === null) {
+                finalValue = current.val
+            } else {
+                previous = current
+                current = current.next
+            }
+        }
+
+        this.tail = previous;
+        this.tail.next = null
 
         this.length--
+
+        return finalValue
     }
 }
 //console.log("test")
 
-const node1 = new Node(1);
-const node2 = new Node(2);
-const node3 = new Node(3);
-const node4 = new Node(4);
-
 const list = new SinglyLinkedList();
 
 
-list.push(node1)
-list.push(node2)
-list.push(node3)
-list.push(node4) 
-//const res = list.pop()
-//console.log(res)
+list.push(1)
+list.push(2)
+list.push(3)
+list.push(4)
+list.push(5)
+list.push(6)
+list.push(7)
 
 list.traverse()
 
-list.pop()
+const res = list.pop()
+console.log("value popped from end: " + res)
+
+list.traverse()
+
+// list.push(node2)
+// list.push(node3)
+// list.push(node4) 
+// //const res = list.pop()
+// //console.log(res)
+
+// list.traverse()
+
+
