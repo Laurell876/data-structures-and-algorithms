@@ -168,6 +168,40 @@ class SinglyLinkedList {
 
     return true
   }
+  reverse(){
+    // reverse the linked list in place, don't use an external array or list
+    // 1 2 3 4 5 -> 5 4 3 2 1
+
+    // create a new variable called node and set it to head
+    // swap the head and tail using the node variable as a placeholder
+    // create two new variables next and previous
+    // loop through the list
+    // in each iteration do the following:
+    // set next to node.next  -- tells the loop where to go next
+    // set node.next to previous -- reverses connections in list
+    // set previous to node -- keeps track of previous value
+    // set node to next -- moves the loop along
+
+
+    let node = this.head
+    this.head = this.tail
+    this.tail = node
+    
+    let next;
+    let prev;
+    
+
+    for (let i = 0; i < this.length; i++) {
+        // set the next value and track the previous
+        next = node.next
+        node.next = prev // in the first iteration node.next is set to null since the next of tail would be null
+        
+        // move to the next step
+        prev = node
+        node = next
+    }
+
+  }
 }
 //console.log("test")
 
@@ -180,5 +214,7 @@ list.push(4);
 list.push(5);
 list.push(6);
 list.push(7);
+
+list.reverse();
 
 list.traverse();
