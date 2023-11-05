@@ -26,7 +26,7 @@ class DoublyLinkedList {
   }
 
   push(val) {
-    // add a value to the end of the list
+    // add a val to the end of the list
     const newNode = new Node(val);
     if (this.length === 0) {
       this.head = newNode;
@@ -58,66 +58,156 @@ class DoublyLinkedList {
 
     const nodeToReturn = this.head;
     if (this.length === 1) {
-        this.head = null
-        this.tail = null
+      this.head = null;
+      this.tail = null;
     } else {
-        this.head = this.head.next
-        this.head.previous = null
+      this.head = this.head.next;
+      this.head.previous = null;
     }
-    
 
     this.length--;
 
-    return nodeToReturn
+    return nodeToReturn;
   }
   unshift(val) {
     // add a node to the beginning of the list
 
     if (this.length === 0) {
-        this.push(val)
+      this.push(val);
     } else {
-        const newNode = new Node(val)
+      const newNode = new Node(val);
 
+      this.head.previous = newNode;
+      newNode.next = this.head;
 
-        this.head.previous = newNode
-        newNode.next = this.head
+      this.head = newNode;
 
-        this.head = newNode
-
-        this.length++;
+      this.length++;
     }
 
-    return this
+    return this;
   }
   get(index) {
-    // get a node at an index 
+    // get a node at an index
 
-    if (index < 0 || index >= this.length) return undefined
+    if (index < 0 || index >= this.length) return undefined;
 
     if (index === 0) {
-        return this.head
-    } else if (index === (this.length - 1)) {
-        return this.tail
+      return this.head;
+    } else if (index === this.length - 1) {
+      return this.tail;
     } else {
-        let half = Math.ceil(this.length / 2)
-        if (index >= half) {
-            let current = this.tail
-            for (let i = (this.length-1); i >= half; i--) {
-                if (i === index) {
-                    return current
-                }  
-                current = current.previous
-            }
-        } else if (index < half) {
-            let current = this.head
-            for (let i = 0; i < half; i++) {
-                
-                if (i === index) {
-                    return current
-                }  
-                current = current.next
-            }
+      let half = Math.ceil(this.length / 2);
+      if (index >= half) {
+        let current = this.tail;
+        for (let i = this.length - 1; i >= half; i--) {
+          if (i === index) {
+            return current;
+          }
+          current = current.previous;
         }
+      } else if (index < half) {
+        let current = this.head;
+        for (let i = 0; i < half; i++) {
+          if (i === index) {
+            return current;
+          }
+          current = current.next;
+        }
+      }
+    }
+  }
+  set(index, val) {
+    // replace the val of a node in a doubly linked list
+
+    if (index < 0 || index >= this.length) return undefined;
+
+    //let newNode = new Node(val)
+
+    if (index === 0) {
+      this.head.val = val;
+    } else if (index === this.length - 1) {
+      this.tail.val = val;
+    } else {
+      let half = Math.ceil(this.length / 2);
+      if (index >= half) {
+        let current = this.tail;
+        for (let i = this.length - 1; i >= half; i--) {
+          if (i === index) {
+            current.val = val;
+          }
+          current = current.previous;
+        }
+      } else if (index < half) {
+        let current = this.head;
+        for (let i = 0; i < half; i++) {
+          if (i === index) {
+            current.val = val;
+          }
+          current = current.next;
+        }
+      }
+    }
+    return this;
+  }
+
+  insert(index, val) {
+    // add a new node at a specific index
+    if (index < 0 || index > this.length) return undefined;
+
+    let newNode = new Node(val);
+
+    if (index === 0) {
+      return this.unshift(val);
+    } else if (index === this.length - 1) {
+      return this.push(val);
+    } else if (index === this.length) {
+      this.tail.next = newNode;
+      newNode.previous = this.tail;
+      this.tail = newNode;
+    } else {
+      const callback = (current) => {
+        newNode.next = current;
+        newNode.previous = current.previous;
+
+        current.previous.next = newNode
+        current.previous = newNode
+      };
+
+      this.traverseToIndex(index, callback, callback);
+    }
+
+    this.length++;
+  }
+
+  remove(index) {
+    // remove the node at a specific index
+    if (index < 0 || index >= this.length) return undefined;
+    if (index === 0) {
+      return this.shift();
+    } else if (index === this.length - 1) {
+      return this.pop();
+    }
+  }
+
+  traverseToIndex(index, closeToTailCallback, closeToHeadCallback) {
+    let half = Math.ceil(this.length / 2);
+    if (index >= half) {
+      let current = this.tail;
+      for (let i = this.length - 1; i >= half; i--) {
+        if (i === index) {
+          closeToTailCallback(current);
+        }
+        current = current.previous;
+      }
+    } else if (index < half) {
+      let current = this.head;
+      for (let i = 0; i < half; i++) {
+        if (i === index) {
+          closeToHeadCallback(current);
+        }
+        current = current.next;
+      }
     }
   }
 }
@@ -131,10 +221,14 @@ list.push(5);
 list.push(6);
 list.push(7);
 list.push(8);
-//list.unshift(10);
+list.insert(6, 550);
 
+list.traverse();
+
+//list.unshift(10);
 
 //list.traverse();
 
-const res = list.get(5)
-console.log(res)
+// list.set(6, 999);
+
+// console.log(list.get(6))
