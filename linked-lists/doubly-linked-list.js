@@ -170,11 +170,11 @@ class DoublyLinkedList {
         newNode.next = current;
         newNode.previous = current.previous;
 
-        current.previous.next = newNode
-        current.previous = newNode
+        current.previous.next = newNode;
+        current.previous = newNode;
       };
 
-      this.traverseToIndex(index, callback, callback);
+      this.traverseToIndex(index, callback);
     }
 
     this.length++;
@@ -187,26 +187,41 @@ class DoublyLinkedList {
       return this.shift();
     } else if (index === this.length - 1) {
       return this.pop();
+    } else {
+      const callback = (current) => {
+        newNode.next = current;
+        newNode.previous = current.previous;
+
+        current.previous.next = newNode;
+        current.previous = newNode;
+      };
+
+      this.traverseToIndex(index, callback);
     }
+
+    this.length++;
   }
 
-  traverseToIndex(index, closeToTailCallback, closeToHeadCallback) {
+  traverseToIndex(index, callback) {
     let half = Math.ceil(this.length / 2);
     if (index >= half) {
-      let current = this.tail;
-      for (let i = this.length - 1; i >= half; i--) {
-        if (i === index) {
-          closeToTailCallback(current);
+      let half = Math.ceil(this.length / 2);
+      if (index >= half) {
+        let current = this.tail;
+        for (let i = this.length - 1; i >= half; i--) {
+          if (i === index) {
+            callback(current);
+          }
+          current = current.previous;
         }
-        current = current.previous;
-      }
-    } else if (index < half) {
-      let current = this.head;
-      for (let i = 0; i < half; i++) {
-        if (i === index) {
-          closeToHeadCallback(current);
+      } else if (index < half) {
+        let current = this.head;
+        for (let i = 0; i < half; i++) {
+          if (i === index) {
+            callback(current);
+          }
+          current = current.next;
         }
-        current = current.next;
       }
     }
   }
