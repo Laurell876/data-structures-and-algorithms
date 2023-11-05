@@ -97,24 +97,7 @@ class DoublyLinkedList {
     } else if (index === this.length - 1) {
       return this.tail;
     } else {
-      let half = Math.ceil(this.length / 2);
-      if (index >= half) {
-        let current = this.tail;
-        for (let i = this.length - 1; i >= half; i--) {
-          if (i === index) {
-            return current;
-          }
-          current = current.previous;
-        }
-      } else if (index < half) {
-        let current = this.head;
-        for (let i = 0; i < half; i++) {
-          if (i === index) {
-            return current;
-          }
-          current = current.next;
-        }
-      }
+        return this.traverseToIndex(index, (current) => current);
     }
   }
   set(index, val) {
@@ -129,24 +112,7 @@ class DoublyLinkedList {
     } else if (index === this.length - 1) {
       this.tail.val = val;
     } else {
-      let half = Math.ceil(this.length / 2);
-      if (index >= half) {
-        let current = this.tail;
-        for (let i = this.length - 1; i >= half; i--) {
-          if (i === index) {
-            current.val = val;
-          }
-          current = current.previous;
-        }
-      } else if (index < half) {
-        let current = this.head;
-        for (let i = 0; i < half; i++) {
-          if (i === index) {
-            current.val = val;
-          }
-          current = current.next;
-        }
-      }
+        return this.traverseToIndex(index, (current) => current.val = val);
     }
     return this;
   }
@@ -189,39 +155,34 @@ class DoublyLinkedList {
       return this.pop();
     } else {
       const callback = (current) => {
-        newNode.next = current;
-        newNode.previous = current.previous;
-
-        current.previous.next = newNode;
-        current.previous = newNode;
+        current.previous.next = current.next;
+        current.next.previous = current.previous;
       };
 
       this.traverseToIndex(index, callback);
     }
 
-    this.length++;
+    this.length--;
   }
 
   traverseToIndex(index, callback) {
     let half = Math.ceil(this.length / 2);
+    //console.log("half: " + half);
     if (index >= half) {
-      let half = Math.ceil(this.length / 2);
-      if (index >= half) {
-        let current = this.tail;
-        for (let i = this.length - 1; i >= half; i--) {
-          if (i === index) {
-            callback(current);
-          }
-          current = current.previous;
+      let current = this.tail;
+      for (let i = this.length - 1; i >= half; i--) {
+        if (i === index) {
+          return callback(current);
         }
-      } else if (index < half) {
-        let current = this.head;
-        for (let i = 0; i < half; i++) {
-          if (i === index) {
-            callback(current);
-          }
-          current = current.next;
+        current = current.previous;
+      }
+    } else if (index < half) {
+      let current = this.head;
+      for (let i = 0; i < half; i++) {
+        if (i === index) {
+          return callback(current);
         }
+        current = current.next;
       }
     }
   }
@@ -236,14 +197,5 @@ list.push(5);
 list.push(6);
 list.push(7);
 list.push(8);
-list.insert(6, 550);
 
-list.traverse();
-
-//list.unshift(10);
-
-//list.traverse();
-
-// list.set(6, 999);
-
-// console.log(list.get(6))
+list.traverse()
