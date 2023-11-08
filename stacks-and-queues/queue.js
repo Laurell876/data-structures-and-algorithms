@@ -12,7 +12,7 @@ class Queue { // FIFO --- add to end, remove from start
       this.head = null;
     }
 
-    push(val) {
+    enqueue(val) {
         let newNode = new Node(val)
         if (this.length === 0) {
             this.first = newNode
@@ -24,7 +24,7 @@ class Queue { // FIFO --- add to end, remove from start
         return ++this.length
     }
 
-    pop() {
+    dequeue() {
         if (this.length === 0) return null
         let temp = this.first
         if (this.length === 1) {
@@ -48,12 +48,12 @@ class Queue { // FIFO --- add to end, remove from start
 }
 
 const queue = new Queue()
-queue.push(1)
-queue.push(2)
-queue.push(3)
-queue.push(4)
-queue.push(5)
-const res = queue.pop()
+queue.enqueue(1)
+queue.enqueue(2)
+queue.enqueue(3)
+queue.enqueue(4)
+queue.enqueue(5)
+const res = queue.dequeue()
 //console.log(res)
 
 queue.traverse()
