@@ -5,7 +5,7 @@ class Node {
   }
 }
 
-class Stack {
+class Stack { // LIFO -- add to start, remove from start
   constructor() {
     this.length = 0;
     this.first = null;
