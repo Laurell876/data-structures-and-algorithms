@@ -60,17 +60,14 @@ class BinarySearchTree {
 }
 
 let tree = new BinarySearchTree();
-tree.insert(10)
-tree.insert(5)
-tree.insert(19)
-tree.insert(21)
-tree.insert(17)
-tree.insert(2)
+
+const values = [41,65,91,99,72,68,50,65,20,29,32,11,12,7]
+values.forEach((item)=>{tree.insert(item)})
 
 console.log("Tree structure")
 console.log(JSON.stringify(tree))
 
 
-const result = tree.search(17)
+const result = tree.search(68)
 
 console.log("\nsearch result: " + JSON.stringify(result))
