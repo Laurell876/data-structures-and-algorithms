@@ -87,17 +87,53 @@ class BinarySearchTree {
     }
     return visited;
   }
-
+  postOrderTraversal(node, visited) {
+    if (node === null) return visited
+    else {
+        this.postOrderTraversal(node.left, visited)
+        this.postOrderTraversal(node.right, visited)
+        visited.push(node.value);
+    }
+    return visited;
+  }
+  inOrderTraversal(node, visited) {
+    if (node === null) return visited
+    else {
+        this.inOrderTraversal(node.left, visited)
+        visited.push(node.value);
+        this.inOrderTraversal(node.right, visited)
+    }
+    return visited;
+  }
   dfsPreOrder() {
+    // pre-order depth first search
     // first visit the node, then its entire left side,
     // then visit its entire right side
 
     let visited = []; // shows order in which values were searched
-
     this.preOrderTraversal(this.root, visited)
-
     return visited;
   }
+  dfsPostOrder() {
+    // post-order depth first search
+    // first visit the left side, then the entire right side
+    // then visit the node
+
+    let visited = []; // shows order in which values were searched
+    this.postOrderTraversal(this.root, visited)
+    return visited;
+  }
+
+  dfsInOrder() {
+    // in-order depth first search
+    // traverse entire left
+    // visit the node
+    // traverse entire right side
+    let visited = []; // shows order in which values were searched
+    this.inOrderTraversal(this.root, visited)
+    return visited;
+  }
+
 }
 
 let tree = new BinarySearchTree();
@@ -107,10 +143,7 @@ values.forEach((item) => {
   tree.insert(item);
 });
 
-const searchResult = tree.dfsPreOrder();
-console.log(JSON.stringify(searchResult));
 
-//console.log("Tree structure")
-//console.log(JSON.stringify(tree))
-//const result = tree.search(68)
-//console.log("\nsearch result: " + JSON.stringify(result))
+console.log(JSON.stringify(tree.dfsPreOrder()));
+console.log(JSON.stringify(tree.dfsPostOrder()));
+console.log(JSON.stringify(tree.dfsInOrder()));
