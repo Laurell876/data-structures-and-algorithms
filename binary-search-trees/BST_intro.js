@@ -68,7 +68,7 @@ tree.insert(17)
 tree.insert(2)
 
 console.log("Tree structure")
-console.log(tree)
+console.log(JSON.stringify(tree))
 
 
 const result = tree.search(17)
