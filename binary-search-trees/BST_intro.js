@@ -57,17 +57,41 @@ class BinarySearchTree {
         }
         return -1
     }
+    breadthFirstSearch() { 
+        // complete each horizontal level before going down a depth
+        let queue = [] // push adds to back, shift removes from front
+        let visited = [] // shows order in which values were searched
+
+        let current = this.root
+        queue.push(current)
+
+        while (queue.length > 0) {
+            const removedVal = queue.shift(); // gets first element
+            visited.push(removedVal.value)
+
+            // if it has a left value add it to the queue
+            if(removedVal.left) queue.push(removedVal.left)
+
+            // if it has a right value add it to the queue
+            if(removedVal.right) queue.push(removedVal.right)
+        }
+        
+        return {
+            queue,
+            visited
+        }
+    }
 }
 
 let tree = new BinarySearchTree();
 
-const values = [41,65,91,99,72,68,50,65,20,29,32,11,12,7]
+const values = [10,6,15,3,8,20]
 values.forEach((item)=>{tree.insert(item)})
 
-console.log("Tree structure")
-console.log(JSON.stringify(tree))
+const searchResult = tree.breadthFirstSearch()
+console.log(JSON.stringify(searchResult))
 
-
-const result = tree.search(68)
-
-console.log("\nsearch result: " + JSON.stringify(result))
+//console.log("Tree structure")
+//console.log(JSON.stringify(tree))
+//const result = tree.search(68)
+//console.log("\nsearch result: " + JSON.stringify(result))
