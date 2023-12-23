@@ -78,12 +78,12 @@ class BinarySearchTree {
     return visited;
   }
 
-  traverseTreeDfs(node, visited) {
+  preOrderTraversal(node, visited) {
     if (node === null) return visited
     else {
         visited.push(node.value);
-        this.traverseTreeDfs(node.left, visited)
-        this.traverseTreeDfs(node.right, visited)
+        this.preOrderTraversal(node.left, visited)
+        this.preOrderTraversal(node.right, visited)
     }
     return visited;
   }
@@ -94,7 +94,7 @@ class BinarySearchTree {
 
     let visited = []; // shows order in which values were searched
 
-    this.traverseTreeDfs(this.root, visited)
+    this.preOrderTraversal(this.root, visited)
 
     return visited;
   }
